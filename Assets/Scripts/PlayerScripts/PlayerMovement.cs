@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
             //transform.position += new Vector3(horizontMove, 0, 0) * Time.deltaTime * movementSpeed;
         }
 
-        if (sideWallRight) Debug.Log("Touching sidewall R");
-        else if(!sideWallRight && sideWall) Debug.Log("Touching sidewall L");
+        //if (sideWallRight) Debug.Log("Touching sidewall R");
+        //else if(!sideWallRight && sideWall) Debug.Log("Touching sidewall L");
     }
 
     void FixedUpdate()
@@ -58,11 +58,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         string tag = collision.gameObject.tag;
         if(tag == "Platform" || tag == "Plank" || tag == "SideWall")
         {
+            Debug.Log("Is on ground");
             isJumping = false;
         }
     }
@@ -72,9 +73,10 @@ public class PlayerMovement : MonoBehaviour
         string tag = collision.gameObject.tag;
         if (tag == "Platform" || tag == "Plank" || tag == "SideWall")
         {
+            Debug.Log("Jumped");
             isJumping = true;
         }
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -95,9 +97,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "SideWall")
+        string tag = collision.gameObject.tag;
+        if (tag == "SideWall")
         {
             sideWall = false;
+        }
+
+        if (tag == "Platform" || tag == "Plank" || tag == "SideWall")
+        {
+            isJumping = true;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        string tag = collision.gameObject.tag;
+        if (tag == "Platform" || tag == "Plank" || tag == "SideWall")
+        {
+            isJumping = false;
         }
     }
 }

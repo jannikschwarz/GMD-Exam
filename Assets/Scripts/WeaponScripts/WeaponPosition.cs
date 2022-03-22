@@ -5,14 +5,14 @@ using UnityEngine;
 namespace Scripts
 {
 
-    public sealed class GunPosition
+    public sealed class WeaponPosition
     {
-        private static GunPosition instance = null;
+        private static WeaponPosition instance = null;
         private static readonly object padlock = new object();
-        public List<float[]> positions;
-        public List<int> takenPositions;
+        private List<float[]> positions;
+        private List<int> takenPositions;
 
-        GunPosition()
+        WeaponPosition()
         {
             SetupPositions();
         }
@@ -30,13 +30,13 @@ namespace Scripts
             takenPositions = new List<int>();
         }
 
-        public static GunPosition Instance()
+        public static WeaponPosition Instance()
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new GunPosition();
+                    instance = new WeaponPosition();
                 }
                 return instance;
             }
