@@ -8,6 +8,7 @@ TagManager:
   - Plank
   - Platform
   - Weapon
+  - MapEdge
   layers:
   - Default
   - TransparentFX

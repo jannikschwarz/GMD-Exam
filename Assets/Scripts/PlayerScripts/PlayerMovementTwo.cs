@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementTwo : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 8f;
     [SerializeField] private float jumpForce = 60f;
@@ -27,8 +27,38 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontMove = Input.GetAxisRaw("Horizontal");
-        verticalMove = Input.GetAxisRaw("Vertical");
+        //horizontMove = Input.GetAxisRaw("Horizontal");
+        //verticalMove = Input.GetAxisRaw("Vertical");
+        if(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        {
+            horizontMove = 0;
+        }else if (Input.GetKey(KeyCode.A))
+        {
+            horizontMove = -1;
+        }else if (Input.GetKey(KeyCode.D))
+        {
+            horizontMove = 1;
+        }
+        else
+        {
+            horizontMove = 0;
+        }
+
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
+        {
+            verticalMove = 0;
+        }else if (Input.GetKey(KeyCode.W))
+        {
+            verticalMove = 1;
+        }else if (Input.GetKey(KeyCode.S))
+        {
+            verticalMove = -1;
+        }
+        else
+        {
+            verticalMove = 0;
+        }
+
         if (!sideWall)
         {
             //transform.position += new Vector3(horizontMove, 0, 0) * Time.deltaTime * movementSpeed;
@@ -57,27 +87,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        string tag = collision.gameObject.tag;
-        if(tag == "Platform" || tag == "Plank" || tag == "SideWall")
-        {
-            Debug.Log("Is on ground");
-            isJumping = false;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        string tag = collision.gameObject.tag;
-        if (tag == "Platform" || tag == "Plank" || tag == "SideWall")
-        {
-            Debug.Log("Jumped");
-            isJumping = true;
-        }
-    }*/
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject temp = collision.gameObject;
