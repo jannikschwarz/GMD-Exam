@@ -9,6 +9,7 @@ TagManager:
   - Platform
   - Weapon
   - MapEdge
+  - Bullet
   layers:
   - Default
   - TransparentFX

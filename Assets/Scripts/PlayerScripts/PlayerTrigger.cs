@@ -6,113 +6,47 @@ using UnityEngine;
 
 public class PlayerTrigger : MonoBehaviour
 {
-    WeaponManager weaponManager;
-    Weapon weapon;
-    GameObject weaponGameObject;
-    private int playerNumber;
+    [SerializeField] private GameObject _riflePrefab;
+    [SerializeField] private GameObject _machineGunPrefab;
+    [SerializeField] private GameObject _pistolPrefab;
+    [SerializeField] private GameObject _smallPistolPrefab;
+    private CharacterControl _characterControl;
+    private int _health;
 
     void Start()
     {
-        weapon = null;
-        weaponGameObject = null;
-        weaponManager = WeaponManager.Instance();
-        playerNumber = 0;
+        _health = 100;
+        _characterControl = GetComponentInParent<CharacterControl>();
+    }
 
-        string playerName = gameObject.name;
-        if (playerName.Contains("("))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject objectEntered = collision.gameObject;
+        if(objectEntered.tag == "Weapon" && !_characterControl.Armed)
         {
-            playerName = playerName.Substring(0, playerName.IndexOf("("));
-        }
-        switch (playerName)
-        {
-            case ("Player1"):
-                playerNumber = 1;
-                break;
-            case ("Player2"):
-                playerNumber = 2;
-                break;
-            case ("Player3"):
-                playerNumber = 3;
-                break;
-            case ("Player4"):
-                playerNumber = 4;
-                break;
+            string weaponName = objectEntered.name.Substring(0,objectEntered.name.IndexOf("1"));
+            _characterControl.Armed = true;
+            Destroy(objectEntered);
+            PickedUpWeapon(weaponName);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void PickedUpWeapon(string weaponName)
     {
-    }
-
-    private void FixedUpdate()
-    {
-        if (Input.GetKey(KeyCode.Space) && playerNumber == 1)
-        {
-            if(weapon != null && weaponGameObject != null)
-            {
-                if (weapon.weaponAmmo > 0)
-                {
-                    weapon.weaponAmmo--;
-                }
-                else
-                {
-                    Destroy(weaponGameObject);
-                    weapon = null;
-                }
-                Debug.Log("Player 1 is shooting with his " + weapon.weaponName);
-            }
-        }
-
-        if (Input.GetKey(KeyCode.X) && playerNumber == 2)
-        {
-            if(weapon != null)
-            {
-                Debug.Log("Player 2 is shooting with his " + weapon.weaponName);
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        GameObject objectEntered = other.gameObject;
-        if(objectEntered.tag == "Weapon" && weapon == null)
-        {
-            string weaponName = objectEntered.name;
-            if (weaponName.Contains("(")){
-                weaponName = weaponName.Substring(0, weaponName.IndexOf("("));
-            }
-            weapon = weaponManager.GenerateWeapon(weaponName);
-            PickedUpWeapon(objectEntered, weaponName);
-        }
-
-        if(objectEntered.tag == "MapEdge")
-        {
-            Debug.Log("Player destroyed");
-            Destroy(this);
-        }
-    }
-
-    private void PickedUpWeapon(GameObject weapon, string name)
-    {
-        weaponGameObject = weapon;
-        weapon.transform.parent = transform;
-        weapon.GetComponent<BoxCollider2D>().enabled = false;
-        weapon.transform.localPosition = new Vector2(0,0);
-
-        switch (name)
+        switch (weaponName)
         {
             case ("Pistol"):
-                weapon.transform.localPosition += new Vector3(0.1f, -0.092f, 0f);
-                break;
-            case ("SmallPistol"):
-                weapon.transform.localPosition += new Vector3(0.098f, -0.093f, 0f);
+                Instantiate(_pistolPrefab, new Vector3(0.1f, -0.092f, 0f), Quaternion.identity);
+
                 break;
             case ("Rifle"):
-                weapon.transform.localPosition += new Vector3(0.098f, -0.093f, 0f);
+                Instantiate(_riflePrefab, new Vector3(0.098f, -0.093f, 0f), Quaternion.identity);
+                break;
+            case ("SmallPistol"):
+                Instantiate(_smallPistolPrefab, new Vector3(0.098f, -0.093f, 0f), Quaternion.identity);
                 break;
             case ("MachineGun"):
-                weapon.transform.localPosition += new Vector3(0.098f, -0.093f, 0f);
+                Instantiate(_machineGunPrefab, new Vector3(0.098f, -0.093f, 0f), Quaternion.identity);
                 break;
         }
     }
