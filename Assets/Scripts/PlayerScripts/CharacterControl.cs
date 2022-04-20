@@ -23,6 +23,7 @@ public class CharacterControl : MonoBehaviour
 
     [SerializeField] private float _groundCheckerRadius;
     [SerializeField] private LayerMask _whatIsGround;
+
     private Transform _groundChecker;
     private bool _grounded;
 
@@ -69,14 +70,14 @@ public class CharacterControl : MonoBehaviour
         else if (_move < 0 && FacingRight) Flip();
 
         //Tell the animator if we are walking or ducking
-        _anim.SetFloat("movement", Mathf.Abs(_move));
+        _anim.SetFloat("Speed", Mathf.Abs(_move));
         _anim.SetBool("ducking", Ducking);
 
         //It's okay to jump in Update (Change velocity) without deltaTime, because we are not adding force continiously
         Jump();
 
         //Tell the animator if we are grounded 
-        _anim.SetBool("grounded",_grounded);
+        _anim.SetBool("Grounded",_grounded);
 
         //resets numbers of jumps when we are grounded
         if (_grounded) _jumps = _maxJumps;
