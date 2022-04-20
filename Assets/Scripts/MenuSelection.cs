@@ -13,7 +13,7 @@ public class MenuSelection : MonoBehaviour
 
 
     private int _playerCount;
-    private int _mapNumber;
+    public int _mapNumber { get; private set; }
 
     private bool hasSpawnedPLayers;
 

@@ -10,6 +10,8 @@ public class PlayerTrigger : MonoBehaviour
     [SerializeField] private GameObject _machineGunPrefab;
     [SerializeField] private GameObject _pistolPrefab;
     [SerializeField] private GameObject _smallPistolPrefab;
+    [SerializeField] private GameObject _shotGunPrefab;
+    [SerializeField] private GameObject _grenadeLauncherPrefab;
     private CharacterControl _characterControl;
     private int _health;
 
