@@ -14,8 +14,8 @@ public class MenuSelection : MonoBehaviour
 
     private int _playerCount;
     public int _mapNumber { get; private set; }
-
     private bool hasSpawnedPLayers;
+    private PlayerSpawnPosition spawn;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,7 @@ public class MenuSelection : MonoBehaviour
         _playerCount = 2;
         _mapNumber = 1;
         hasSpawnedPLayers = false;
+        spawn = PlayerSpawnPosition.getInstance();
     }
 
     // Update is called once per frame
@@ -34,26 +35,27 @@ public class MenuSelection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(SceneManager.GetActiveScene().name == "Map1")
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName != "MainMenu")
         {
-            SpawnPlayersForMapOne();
+            if (sceneName.Equals("Map1")) SpawnPlayers(spawn.getMapOnePositions());
+            else if (sceneName.Equals("Map2")) SpawnPlayers(spawn.getMapTwoPositions());
         }
     }
 
-    private void SpawnPlayersForMapOne()
+    private void SpawnPlayers(List<float[]> positions)
     {
         if (!hasSpawnedPLayers)
         {
-            List<float[]> positions = PlayerSpawnPosition.getInstance().getMapOnePositions();
             Instantiate(player1, new Vector2(positions[0][0], positions[0][1]), Quaternion.identity);
             Instantiate(player2, new Vector2(positions[2][0], positions[2][1]), Quaternion.identity);
 
-            if(_playerCount > 2)
+            if (_playerCount > 2)
             {
                 Instantiate(player3, new Vector2(positions[1][0], positions[1][1]), Quaternion.identity);
             }
 
-            if(_playerCount > 3)
+            if (_playerCount > 3)
             {
                 Instantiate(player4, new Vector2(positions[3][0], positions[0][1]), Quaternion.identity);
             }
@@ -76,15 +78,25 @@ public class MenuSelection : MonoBehaviour
         _playerCount = 4;
     }
 
+    public void Map1()
+    {
+        _mapNumber = 1;
+    }
+
+    public void Map2()
+    {
+        _mapNumber = 2;
+    }
+
     public void StartGame()
     {
         if(_mapNumber == 1)
         {
-            SceneManager.LoadScene("Map1");
+            SceneManager.LoadScene("Map2");
         }
-        else
+        else if(_mapNumber == 2)
         {
-            SceneManager.LoadScene("Map1");
+            SceneManager.LoadScene("Map2");
         }
     }
 }
