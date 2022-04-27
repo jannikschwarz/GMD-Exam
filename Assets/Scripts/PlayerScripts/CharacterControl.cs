@@ -59,8 +59,8 @@ public class CharacterControl : MonoBehaviour
         _jump = Input.GetButtonDown("A_" + _playerNumber);
 
         //Set ducking to true if player presses duck and we are on the grounnd
-        Ducking = Input.GetAxisRaw("L_YAxis_" + _playerNumber) > 0 && _grounded ? true : false;
-        if (Ducking) _move = 0;
+        //Ducking = Input.GetAxisRaw("L_YAxis_" + _playerNumber) > 0 && _grounded ? true : false;
+        //if (Ducking) _move = 0;
 
         //Change value of movement if sprint key is pressed
         _move = Input.GetAxisRaw("TriigersR_" + _playerNumber) < 0 ? _move * _sprintFactor : _move;
@@ -71,7 +71,7 @@ public class CharacterControl : MonoBehaviour
 
         //Tell the animator if we are walking or ducking
         _anim.SetFloat("Speed", Mathf.Abs(_move));
-        _anim.SetBool("ducking", Ducking);
+        //_anim.SetBool("ducking", Ducking);
 
         //It's okay to jump in Update (Change velocity) without deltaTime, because we are not adding force continiously
         Jump();
