@@ -29,7 +29,7 @@ public class CharacterControl : MonoBehaviour
 
     private Rigidbody2D _rb;
     private float _move;
-    private bool _jump;
+    private float _jump;
     private int _jumps;
     private bool _sprinting;
     private Animator _anim;
@@ -56,14 +56,14 @@ public class CharacterControl : MonoBehaviour
     {
         //Listening for input. Using player numbers to avoid creating individual scripts for each player. 
         _move = Input.GetAxis("L_XAxis_" + _playerNumber);
-        _jump = Input.GetButtonDown("A_" + _playerNumber);
+        _jump = Input.GetAxis("A_" + _playerNumber);
 
         //Set ducking to true if player presses duck and we are on the grounnd
-        Ducking = Input.GetAxisRaw("L_YAxis_" + _playerNumber) > 0 && _grounded ? true : false;
+        //Ducking = Input.GetAxisRaw("L_YAxis_" + _playerNumber) > 0 && _grounded ? true : false;
         if (Ducking) _move = 0;
 
         //Change value of movement if sprint key is pressed
-        _move = Input.GetAxisRaw("TriigersR_" + _playerNumber) < 0 ? _move * _sprintFactor : _move;
+        //_move = Input.GetAxisRaw("TriigersR_" + _playerNumber) < 0 ? _move * _sprintFactor : _move;
 
         //Flipping the player depending on the direction of motion
         if (_move > 0 && !FacingRight) Flip();
@@ -95,7 +95,7 @@ public class CharacterControl : MonoBehaviour
     private void Jump()
     {
         //Check if jump is pressed and if we have any jumps left
-        if (!_jump || _jumps <= 0) return;
+        if (_jump > 0 || _jumps <= 0) return;
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
         _jumps -= 1;
     }
