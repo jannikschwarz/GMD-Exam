@@ -43,6 +43,25 @@ public class CharacterControl : MonoBehaviour
         _groundChecker = transform.GetChild(1);
         //Check if the character is facing left
         FacingRight = transform.localScale.x != -1;
+        string playerName = gameObject.name;
+        playerName = playerName.Substring(0, 7);
+
+        //Incase of direct scene start
+        switch (playerName)
+        {
+            case ("Player1"):
+                _playerNumber = 1;
+                break;
+            case ("Player2"):
+                _playerNumber = 2;
+                break;
+            case ("Player3"):
+                _playerNumber = 3;
+                break;
+            case ("Player4"):
+                _playerNumber = 4;
+                break;
+        }
     }
 
     // Start is called before the first frame update
@@ -60,10 +79,10 @@ public class CharacterControl : MonoBehaviour
 
         //Set ducking to true if player presses duck and we are on the grounnd
         //Ducking = Input.GetAxisRaw("L_YAxis_" + _playerNumber) > 0 && _grounded ? true : false;
-        //if (Ducking) _move = 0;
+        if (Ducking) _move = 0;
 
         //Change value of movement if sprint key is pressed
-        _move = Input.GetAxisRaw("TriigersR_" + _playerNumber) < 0 ? _move * _sprintFactor : _move;
+        //_move = Input.GetAxisRaw("TriigersR_" + _playerNumber) < 0 ? _move * _sprintFactor : _move;
 
         //Flipping the player depending on the direction of motion
         if (_move > 0 && !FacingRight) Flip();
@@ -76,6 +95,7 @@ public class CharacterControl : MonoBehaviour
         //It's okay to jump in Update (Change velocity) without deltaTime, because we are not adding force continiously
         Jump();
 
+        Debug.Log("Armed: " + Armed);
         //Tell the animator if we are grounded 
         _anim.SetBool("Grounded",_grounded);
 
@@ -91,6 +111,7 @@ public class CharacterControl : MonoBehaviour
         //Move left or right
         _rb.velocity = new Vector2(_move * _speed, _rb.velocity.y);
     }
+
 
     private void Jump()
     {

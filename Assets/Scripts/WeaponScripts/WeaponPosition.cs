@@ -9,97 +9,67 @@ namespace Scripts
     {
         private static WeaponPosition instance = null;
         private static readonly object padlock = new object();
-        private List<float[]> positions1;
-        private List<float[]> positions2;
-        private List<float[]> positions3;
+        private List<float[]> positions;
         private List<int> takenPositions;
+        public bool retrievedPositions { get; set; }
 
-        WeaponPosition()
+        WeaponPosition(int mapNumber)
         {
-            SetupPositions();
+            SetupPositions(mapNumber);
+            retrievedPositions = false;
         }
 
-        private void SetupPositions()
+        private void SetupPositions(int mapNumber)
         {
-            positions1 = new List<float[]>
+            if(mapNumber == 1)
             {
-                new float[2]{-12.47f,-1.65f},
-                new float[2]{-14.57f,2.61f},
-                new float[2]{-2.74f,-4.5f},
-                new float[2]{6.13f,0.06f}
-            };
-
-            positions2 = new List<float[]>
+                positions = new List<float[]>
+                {
+                    new float[2]{-12.47f,-1.65f},
+                    new float[2]{-14.57f,2.61f},
+                    new float[2]{-2.74f,-4.5f},
+                    new float[2]{6.13f,0.06f}
+                };
+            }else if(mapNumber == 2)
             {
-                new float[2]{-12.63f, -0.41f},
-                new float[2]{-12.21f, 4.6f},
-                new float[2]{-4.53f, 3.6f},
-                new float[2]{-4.53f, -2.41f},
-                new float[2]{-10.21f, -3.35f},
-                new float[2]{-4.43f, 6.64f},
-                new float[2]{-0.3f, 2.61f},
-                new float[2]{0.91f, -3.34f}
-            };
-
+                positions = new List<float[]>
+                {
+                    new float[2]{-12.63f, -0.41f},
+                    new float[2]{-12.21f, 4.6f},
+                    new float[2]{-4.53f, 3.6f},
+                    new float[2]{-4.53f, -2.41f},
+                    new float[2]{-10.21f, -3.35f},
+                    new float[2]{-4.43f, 6.64f},
+                    new float[2]{-0.3f, 2.61f},
+                    new float[2]{0.91f, -3.34f}
+                };
+            }
             takenPositions = new List<int>();
         }
 
-        public static WeaponPosition Instance()
+        public static WeaponPosition Instance(int mapNumber)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new WeaponPosition();
+                    instance = new WeaponPosition(mapNumber);
                 }
                 return instance;
             }
         }
 
-        public float[] getRandomPosition(int mapNumber)
+        public float[] getRandomPosition()
         {
-            int numberOfAvailablePositions = takenPositions.Count;
+            int range = positions.Count;
             int random;
-
-            if (numberOfAvailablePositions == 0)
+            while (true)
             {
-                random = UnityEngine.Random.Range(0,4);
-                takenPositions.Add(random);
-                switch (mapNumber)
+                random = UnityEngine.Random.Range(0, range);
+                if (!takenPositions.Contains(random))
                 {
-                    case (1):
-                        return positions1[random];
-                    case (2):
-                        return positions2[random];
-                    case (3):
-                        return positions3[random];
-                    default:
-                        return null;
-                }
-            }else if(numberOfAvailablePositions == positions1.Count)
-            {
-                throw (new Exception("No more spots left in positions"));
-            }
-            else
-            {
-                while (true)
-                {
-                    random = UnityEngine.Random.Range(0, 4);
-                    if (!takenPositions.Contains(random))
-                    {
-                        takenPositions.Add(random);
-                        switch (mapNumber)
-                        {
-                            case (1):
-                                return positions1[random];
-                            case (2):
-                                return positions2[random];
-                            case (3):
-                                return positions3[random];
-                            default:
-                                return null;
-                        }
-                    }
+                    takenPositions.Add(random);
+                    return positions[random];
                 }
             }
         }
