@@ -2076,8 +2076,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1695373960}
   - component: {fileID: 1695373959}
+  - component: {fileID: 1695373962}
+  - component: {fileID: 1695373961}
   m_Layer: 0
-  m_Name: MenuSelectionGO
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2095,10 +2097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aaba4b3dbc4d4e43b152d80f79cde85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 7333112101287537844, guid: 4014d34e32c5a38418845e579abeb096, type: 3}
-  player2: {fileID: 2163169033872715436, guid: 9e4c5e2f18a0bb0458d8227125cc8d4f, type: 3}
-  player3: {fileID: 7283183808264902988, guid: d91f72b176a942444aacf0798310aebf, type: 3}
-  player4: {fileID: 2854384231398962568, guid: eb0a6c9a66834aa4cb01f0749c8f1c79, type: 3}
 --- !u!4 &1695373960
 Transform:
   m_ObjectHideFlags: 0
@@ -2113,6 +2111,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1695373961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695373958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbe2a406be62b6478dfd0908f008400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  player3: {fileID: 0}
+  player4: {fileID: 0}
+--- !u!114 &1695373962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695373958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad742ff2918e2dc4291903874963f34f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1867044390
 GameObject:
   m_ObjectHideFlags: 0
