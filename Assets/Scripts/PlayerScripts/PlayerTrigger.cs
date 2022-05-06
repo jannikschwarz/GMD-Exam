@@ -37,25 +37,22 @@ public class PlayerTrigger : MonoBehaviour
 
     private void PickedUpWeapon(string weaponName)
     {
-        Debug.LogWarning("SPAWNED WEAPON: " + weaponName + "END");
+        GameObject weapon = new GameObject();
         switch (weaponName)
         {
             case ("Pistol "):
-                GameObject temp = Instantiate(_pistolPrefab, new Vector3(0.1f, -0.092f, 0f), Quaternion.identity);
-                temp.transform.SetParent(gameObject.transform);
+                weapon = Instantiate(_pistolPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
                 break;
             case ("Rifle "):
-                Instantiate(_riflePrefab, new Vector3(0.098f, -0.093f, 0f), Quaternion.identity);
+                weapon = Instantiate(_riflePrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
                 break;
             case ("SmallPistol "):
-                Instantiate(_smallPistolPrefab, new Vector3(0.098f, -0.093f, 0f), Quaternion.identity);
+                weapon = Instantiate(_smallPistolPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
                 break;
             case ("MachineGun "):
-                Instantiate(_machineGunPrefab, new Vector3(0.098f, -0.093f, 0f), Quaternion.identity);
+                weapon = Instantiate(_machineGunPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
                 break;
         }
-
-
-
+        weapon.SendMessage("SetCharacterControl", _characterControl);
     }
 }
