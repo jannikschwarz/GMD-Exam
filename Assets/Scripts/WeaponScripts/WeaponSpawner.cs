@@ -1,4 +1,5 @@
 using Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,40 +13,89 @@ public class WeaponSpawner : MonoBehaviour
     [SerializeField] public GameObject machineGun;
     [SerializeField] public GameObject shotGun;
     [SerializeField] public GameObject grenadeLauncher;
+    private float[] smallPistolP;
+    private float[] pistolP;
+    private float[] rifleP;
+    private float[] machineGunP;
+    private float[] shotGunP;
+    private float[] grenadeLauncherP;
 
-    private WeaponPosition weaponPosition;
-    private MenuSelection menuSelection;
+    private WeaponPosition _weaponPosInstance;
+    private int _mapNumber;
 
     void Start()
     {
-        weaponPosition = WeaponPosition.Instance(2);
+        _weaponPosInstance = WeaponPosition.Instance(2);
+        if (!WeaponPosition.retrievedPositions)
+        {
+            WeaponSpawn();
+            WeaponPosition.retrievedPositions = true;
+        }
+        PlayerTrigger.WeaponPickedUp += RespawnWeapon;
+    }
+
+    public void WeaponMapSpawn(int mapNumber)
+    {
+        //weaponPosition = new WeaponPosition(mapNumber);
+        /*_mapNumber = mapNumber;
         if (!weaponPosition.retrievedPositions)
         {
-            PistolSpawn();
-            RifleSpawn();
+            WeaponSpawn();
             weaponPosition.retrievedPositions = true;
-            Debug.Log("Weapon spawned");
+        }*/
+    }
+
+    private void WeaponSpawn()
+    {
+        rifleP = WeaponPosition.getRandomPosition();
+        pistolP = WeaponPosition.getRandomPosition();
+        smallPistolP = WeaponPosition.getRandomPosition();
+        machineGunP = WeaponPosition.getRandomPosition();
+        shotGunP = WeaponPosition.getRandomPosition();
+        grenadeLauncherP = WeaponPosition.getRandomPosition();
+        Instantiate(rifle, new Vector2(rifleP[0], rifleP[1]), Quaternion.identity);
+        Instantiate(machineGun, new Vector2(machineGunP[0], machineGunP[1]), Quaternion.identity);
+        Instantiate(shotGun, new Vector2(shotGunP[0], shotGunP[1]), Quaternion.identity);
+        Instantiate(grenadeLauncher, new Vector2(grenadeLauncherP[0], grenadeLauncherP[1]), Quaternion.identity);
+        Instantiate(smallPistol, new Vector2(smallPistolP[0], smallPistolP[1]), Quaternion.identity);
+        Instantiate(pistol, new Vector2(pistolP[0], pistolP[1]), Quaternion.identity);
+    }
+
+    void RespawnWeapon(string weaponName)
+    {
+        switch (weaponName)
+        {
+            case ("Pistol"):
+                WeaponPosition.RemoveWeapon(pistolP);
+                pistolP = WeaponPosition.getRandomPosition();
+                if(pistolP != null)Instantiate(pistol, new Vector2(pistolP[0], pistolP[1]), Quaternion.identity);
+                break;
+            case ("Rifle"):
+                WeaponPosition.RemoveWeapon(rifleP);
+                rifleP = WeaponPosition.getRandomPosition();
+                if(rifleP != null) Instantiate(rifle, new Vector2(rifleP[0], rifleP[1]), Quaternion.identity);
+                break;
+            case ("SmallPistol"):
+                WeaponPosition.RemoveWeapon(smallPistolP);
+                smallPistolP = WeaponPosition.getRandomPosition();
+                if(smallPistolP != null)Instantiate(smallPistol, new Vector2(smallPistolP[0], smallPistolP[1]), Quaternion.identity);
+                break;
+            case ("MachineGun"):
+                WeaponPosition.RemoveWeapon(machineGunP);
+                machineGunP = WeaponPosition.getRandomPosition();
+                if(machineGunP != null)Instantiate(machineGun, new Vector2(machineGunP[0], machineGunP[1]), Quaternion.identity);
+                break;
+            case ("GrenadeLauncher"):
+                WeaponPosition.RemoveWeapon(grenadeLauncherP);
+                grenadeLauncherP = WeaponPosition.getRandomPosition();
+                if(grenadeLauncherP != null)Instantiate(grenadeLauncher, new Vector2(grenadeLauncherP[0], grenadeLauncherP[1]), Quaternion.identity);
+                break;
+            case ("Shotgun"):
+                WeaponPosition.RemoveWeapon(shotGunP);
+                shotGunP = WeaponPosition.getRandomPosition();
+                if(shotGunP != null)Instantiate(shotGun, new Vector2(shotGunP[0], shotGunP[1]), Quaternion.identity);
+                break;
         }
-    }
-
-    private void RifleSpawn()
-    {
-        float[] p1 = weaponPosition.getRandomPosition();
-        float[] p2 = weaponPosition.getRandomPosition();
-        float[] p3 = weaponPosition.getRandomPosition();
-        float[] p4 = weaponPosition.getRandomPosition();
-        Instantiate(rifle, new Vector2(p1[0], p1[1]), Quaternion.identity);
-        Instantiate(machineGun, new Vector2(p2[0], p2[1]), Quaternion.identity);
-        Instantiate(shotGun, new Vector2(p3[0], p3[1]), Quaternion.identity);
-        Instantiate(grenadeLauncher, new Vector2(p4[0], p4[1]), Quaternion.identity);
-    }
-
-    private void PistolSpawn()
-    {
-        float[] p1 = weaponPosition.getRandomPosition();
-        float[] p2 = weaponPosition.getRandomPosition();
-        Instantiate(smallPistol, new Vector2(p1[0], p1[1]), Quaternion.identity);
-        Instantiate(pistol, new Vector2(p2[0], p2[1]), Quaternion.identity);
     }
 }
 

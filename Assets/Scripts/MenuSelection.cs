@@ -8,8 +8,7 @@ public class MenuSelection : MonoBehaviour
 {
     private int _playerCount;
     public int _mapNumber { get; private set; }
-    public static event Action<int, List<string>> PlayerSpawnAction = delegate { };
-    public static event Action<int, int> MapStartAction = delegate { };
+    public static event Action<int, int, List<string>> GameStart = delegate { };
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +65,6 @@ public class MenuSelection : MonoBehaviour
             SceneManager.LoadScene("Map2");
         }
 
-        PlayerSpawnAction(_playerCount,new List<string>());
-        MapStartAction(_playerCount, _mapNumber);
+        GameStart(_playerCount, _mapNumber,new List<string>());
     }
 }

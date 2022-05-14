@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour
 {
-    [SerializeField] private int _playerNumber;
-
-    public int PlayerNumber
-    {
-        get { return _playerNumber; }
-    }
 
     public bool Ducking { get; private set; }
     public bool FacingRight { get; private set; }
@@ -30,9 +24,12 @@ public class CharacterControl : MonoBehaviour
     private Rigidbody2D _rb;
     private float _move;
     private bool _jump;
+    private bool _onWall;
     private float _jumpInput;
     private int _jumps;
     private Animator _anim;
+    private PlayerInfo _playerInfo;
+    private BoxCollider2D _wallCollider;
 
 
     private void Awake()
@@ -42,27 +39,10 @@ public class CharacterControl : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponentInChildren<Animator>();
         _groundChecker = transform.GetChild(1);
+        _playerInfo = GetComponent<PlayerInfo>();
+        _wallCollider = GetComponent<BoxCollider2D>();
         //Check if the character is facing left
         FacingRight = transform.localScale.x != -1;
-        string playerName = gameObject.name;
-        playerName = playerName.Substring(0, 7);
-
-        //Incase of direct scene start
-        switch (playerName)
-        {
-            case ("Player1"):
-                _playerNumber = 1;
-                break;
-            case ("Player2"):
-                _playerNumber = 2;
-                break;
-            case ("Player3"):
-                _playerNumber = 3;
-                break;
-            case ("Player4"):
-                _playerNumber = 4;
-                break;
-        }
     }
 
     // Start is called before the first frame update
@@ -75,8 +55,8 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         //Listening for input. Using player numbers to avoid creating individual scripts for each player. 
-        _move = Input.GetAxis("L_XAxis_" + _playerNumber);
-        _jumpInput = Input.GetAxis("A_" + _playerNumber);
+        _move = Input.GetAxis("L_XAxis_" + _playerInfo.PlayerNumber);
+        _jumpInput = Input.GetAxis("A_" + _playerInfo.PlayerNumber);
 
         if (_jumpInput > 0) _jump = true;
         else _jump = false;
@@ -95,6 +75,9 @@ public class CharacterControl : MonoBehaviour
 
         //Tell the animator if we are grounded 
         _anim.SetBool("Grounded",_grounded);
+
+        //Tell the animator if we are on a wall
+        _anim.SetBool("OnWall", _onWall);
     }
 
     private void FixedUpdate()
@@ -120,5 +103,24 @@ public class CharacterControl : MonoBehaviour
         //Flipping the character by inverting the x-scale
         FacingRight = !FacingRight;
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        string tag = collision.tag;
+        if(tag == "Platform")
+        {
+            _onWall = true;
+            _jumps = 1;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        string tag = collision.tag;
+        if(tag == "Platform")
+        {
+            _onWall = false;
+        }
     }
 }

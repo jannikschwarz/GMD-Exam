@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6471006131729480549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6471006131729480551}
+  - component: {fileID: 6471006131729480548}
+  - component: {fileID: 6471006131729480550}
+  - component: {fileID: 6471006131729480569}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6471006131729480551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471006131729480549}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 366.04517, y: 138.97542, z: -1116.4144}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6471006131729480548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471006131729480549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497c80e0094df7242be7bd2fd29dc358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallPistol: {fileID: 2856238807350370541, guid: a003443dcd710a548a682bc469cd3ef6, type: 3}
+  pistol: {fileID: 6472057412531097382, guid: 25306fc9f5ce2804980591055e7596be, type: 3}
+  rifle: {fileID: 7772199241247430318, guid: 442b2705f0d5ab54db7bc73d47f6b641, type: 3}
+  machineGun: {fileID: 4692766264848984190, guid: 071d4eec38d49444b9b8ea4149b102ba, type: 3}
+  shotGun: {fileID: 7192329654268195515, guid: ed4ec46a9974f264db30940b2bc6340f, type: 3}
+  grenadeLauncher: {fileID: 9085784077237284423, guid: da71c1ed37a656f4797ef35acf850d71, type: 3}
+--- !u!114 &6471006131729480550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471006131729480549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbe2a406be62b6478dfd0908f008400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 7333112101287537844, guid: 4014d34e32c5a38418845e579abeb096, type: 3}
+  player2: {fileID: 2163169033872715436, guid: 9e4c5e2f18a0bb0458d8227125cc8d4f, type: 3}
+  player3: {fileID: 7283183808264902988, guid: d91f72b176a942444aacf0798310aebf, type: 3}
+  player4: {fileID: 2854384231398962568, guid: eb0a6c9a66834aa4cb01f0749c8f1c79, type: 3}
+--- !u!114 &6471006131729480569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471006131729480549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e2b10808a3d0e488fc388d14d7f79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theKilledTextFeed: {fileID: 0}
+  killedByTextFeed: {fileID: 0}
+  winnerText: {fileID: 0}

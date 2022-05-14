@@ -112,8 +112,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5753603846225718264}
   - component: {fileID: 3751325698981450626}
+  - component: {fileID: 7425815361504259538}
   m_Layer: 0
-  m_Name: BodyCollider
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,8 +131,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 965261121948254465}
-  m_RootOrder: 1
+  m_Father: {fileID: 1527256073486264197}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3751325698981450626
 BoxCollider2D:
@@ -143,10 +144,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0049428195, y: -0.094743095}
+  m_Offset: {x: 0.0037295185, y: -0.03457831}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -157,8 +158,26 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15010825, y: 0.0898691}
+  m_Size: {x: 0.16709554, y: 0.21019867}
   m_EdgeRadius: 0
+--- !u!114 &7425815361504259538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449670413905041998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb29d945a91f1e4396c8792dc0c97eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _riflePrefab: {fileID: 7772199241247430318, guid: 16b07f254182cb34ca70ca0c8b02cf47, type: 3}
+  _machineGunPrefab: {fileID: 341774569823327606, guid: 4432c18e3b52a984da3119ef51a52db7, type: 3}
+  _pistolPrefab: {fileID: 6472057412531097382, guid: 85b746443d918e24d97263532fa53e52, type: 3}
+  _smallPistolPrefab: {fileID: 2856238807350370541, guid: 2201c8d1f435aa7479c2d6b340d62d80, type: 3}
+  _shotGunPrefab: {fileID: 7192329654268195515, guid: 8e9b9365d0f60d54f90cb7fa8e49739f, type: 3}
+  _grenadeLauncherPrefab: {fileID: 8185992136114905960, guid: bcd72c35249562247b9b96b1cc8e0234, type: 3}
 --- !u!1 &2854384231398962568
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +189,7 @@ GameObject:
   - component: {fileID: 1527256073486264197}
   - component: {fileID: 6670804189460788670}
   - component: {fileID: -4529748317429158224}
+  - component: {fileID: 737045947698824349}
   m_Layer: 0
   m_Name: Player4
   m_TagString: Untagged
@@ -191,6 +211,7 @@ Transform:
   - {fileID: 8764264740183028823}
   - {fileID: 8783285107400503943}
   - {fileID: 965261121948254465}
+  - {fileID: 5753603846225718264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -206,7 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c935e4719d0b684aa9156d4654009e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerNumber: 4
   _speed: 3.5
   _jumpForce: 9
   _maxJumps: 1
@@ -236,6 +256,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &737045947698824349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854384231398962568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d600febb9d72c468a218f40ca5f398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerNumber: 0
 --- !u!1 &5623766562132169214
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5623766562132169214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.16078, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1756, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1527256073486264197}
@@ -278,7 +311,7 @@ GameObject:
   - component: {fileID: 2451555100447695352}
   - component: {fileID: 903728512994801295}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: CapsuleCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,9 +327,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8182852849622066935}
-  - {fileID: 5753603846225718264}
+  m_Children: []
   m_Father: {fileID: 1527256073486264197}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -313,8 +344,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0063615236, y: -0.035274006}
-  m_Size: {x: 0.15375409, y: 0.25634438}
+  m_Offset: {x: 0.0063615236, y: -0.03151983}
+  m_Size: {x: 0.15375409, y: 0.26385295}
   m_Direction: 0
 --- !u!114 &903728512994801295
 MonoBehaviour:
@@ -334,60 +365,3 @@ MonoBehaviour:
   _smallPistolPrefab: {fileID: 2856238807350370541, guid: 2201c8d1f435aa7479c2d6b340d62d80, type: 3}
   _shotGunPrefab: {fileID: 7192329654268195515, guid: 8e9b9365d0f60d54f90cb7fa8e49739f, type: 3}
   _grenadeLauncherPrefab: {fileID: 8185992136114905960, guid: bcd72c35249562247b9b96b1cc8e0234, type: 3}
---- !u!1 &7928386678848072952
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8182852849622066935}
-  - component: {fileID: 6738835373608715002}
-  m_Layer: 0
-  m_Name: HeadCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8182852849622066935
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7928386678848072952}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 965261121948254465}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &6738835373608715002
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7928386678848072952}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0054939166, y: 0.015299158}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.21062408, y: 0.13048097}
-  m_EdgeRadius: 0

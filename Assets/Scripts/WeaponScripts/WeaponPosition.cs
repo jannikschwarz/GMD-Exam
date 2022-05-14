@@ -7,11 +7,12 @@ namespace Scripts
 
     public sealed class WeaponPosition
     {
-        private static WeaponPosition instance = null;
+        private static List<float[]> _positions;
+        private static List<int> _takenPositions;
         private static readonly object padlock = new object();
-        private List<float[]> positions;
-        private List<int> takenPositions;
-        public bool retrievedPositions { get; set; }
+        private static WeaponPosition _instance = null;
+        
+        public static bool retrievedPositions { get; set; }
 
         WeaponPosition(int mapNumber)
         {
@@ -19,11 +20,20 @@ namespace Scripts
             retrievedPositions = false;
         }
 
+        public static WeaponPosition Instance(int mapNumber)
+        {
+            if(_instance == null)
+            {
+                _instance = new WeaponPosition(mapNumber);
+            }
+            return _instance;
+        }
+
         private void SetupPositions(int mapNumber)
         {
             if(mapNumber == 1)
             {
-                positions = new List<float[]>
+                _positions = new List<float[]>
                 {
                     new float[2]{-12.47f,-1.65f},
                     new float[2]{-14.57f,2.61f},
@@ -32,7 +42,7 @@ namespace Scripts
                 };
             }else if(mapNumber == 2)
             {
-                positions = new List<float[]>
+                _positions = new List<float[]>
                 {
                     new float[2]{-12.63f, -0.41f},
                     new float[2]{-12.21f, 4.6f},
@@ -44,34 +54,32 @@ namespace Scripts
                     new float[2]{0.91f, -3.34f}
                 };
             }
-            takenPositions = new List<int>();
+            _takenPositions = new List<int>();
         }
 
-        public static WeaponPosition Instance(int mapNumber)
+        public static float[] getRandomPosition()
         {
-            lock (padlock)
+            if (_takenPositions.Count != 6)
             {
-                if (instance == null)
+                int range = _positions.Count;
+                int random;
+                while (true)
                 {
-                    instance = new WeaponPosition(mapNumber);
+                    random = UnityEngine.Random.Range(0, range);
+                    if (!_takenPositions.Contains(random))
+                    {
+                        _takenPositions.Add(random);
+                        return _positions[random];
+                    }
                 }
-                return instance;
             }
+            else return null;
         }
 
-        public float[] getRandomPosition()
+        public static void RemoveWeapon(float[] pistolP)
         {
-            int range = positions.Count;
-            int random;
-            while (true)
-            {
-                random = UnityEngine.Random.Range(0, range);
-                if (!takenPositions.Contains(random))
-                {
-                    takenPositions.Add(random);
-                    return positions[random];
-                }
-            }
+            int index = _positions.IndexOf(pistolP);
+            _takenPositions.Remove(index);
         }
     }
 }

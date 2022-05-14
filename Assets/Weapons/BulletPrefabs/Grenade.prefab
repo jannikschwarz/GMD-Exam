@@ -241,10 +241,12 @@ GameObject:
   - component: {fileID: 3469178968780660464}
   - component: {fileID: 1300362433326158980}
   - component: {fileID: 5281242609384037337}
-  - component: {fileID: 1554821765887763087}
+  - component: {fileID: -4101237207411233681}
+  - component: {fileID: 7173922010325535707}
+  - component: {fileID: -6468189398744486595}
   m_Layer: 0
   m_Name: Grenade
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,8 +259,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8027589857593909706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4113, y: -0.9531, z: 0}
-  m_LocalScale: {x: 0.06352728, y: 0.058007754, z: 1}
+  m_LocalPosition: {x: -1.1837, y: -0.7473, z: 0}
+  m_LocalScale: {x: 0.5187246, y: 0.4695023, z: 1}
   m_Children:
   - {fileID: 2600254754526841566}
   - {fileID: 1653287629061021520}
@@ -333,7 +335,54 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1554821765887763087
+--- !u!61 &-4101237207411233681
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027589857593909706}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0028981417, y: 0.60291946}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.27561364, y: 0.20033717}
+  m_EdgeRadius: 0
+--- !u!50 &7173922010325535707
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027589857593909706}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 63208ea5995343241be902f0b9713f71, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-6468189398744486595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,7 +391,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8027589857593909706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5298a2b42aded024ea9b7d047c5f074c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b6b457d7163499499571cfe0a285fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpeed: 5

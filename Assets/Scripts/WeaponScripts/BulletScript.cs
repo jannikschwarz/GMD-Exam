@@ -5,80 +5,59 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    [SerializeField]
-    private float _bulletSpeed;
-    [SerializeField]
-    private int _bulletDamage;
-    private float _playerNumber;
-    private CharacterControl _characterControl;
-    public static event Action<int,int> PlayerHitAction = delegate { }; 
-
+    private string _bulletName;
+    private bool _timeStarted;
+    private int _bounce;
+    private float _explodeTime;
     // Start is called before the first frame update
     void Start()
     {
-        string tempName = gameObject.name;
-        if (tempName.Contains("(")) tempName.Substring(0, tempName.IndexOf("("));
-        _characterControl = GetComponentInParent<WeaponScript>().GetComponentInParent<CharacterControl>();
-        var force = (_characterControl.FacingRight ? Vector2.right : -Vector2.right) * _bulletSpeed;
-        gameObject.GetComponent<Rigidbody2D>().AddForce(force);
+        _bulletName = gameObject.name;
+        if (_bulletName.Contains("(")) _bulletName = _bulletName.Substring(0, _bulletName.IndexOf("("));
+        _bounce = 3;
+        _explodeTime = 2.0f;
+    }
+
+    private void Update()
+    {
+        if (_timeStarted)
+        {
+            _explodeTime -= Time.deltaTime;
+            if(_explodeTime <= 0.0f)
+            {
+                GrenadeExplode();
+            }
+        }
+    }
+
+    private void GrenadeExplode()
+    {
+        _timeStarted = false;
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        string tag = collision.gameObject.tag;
-        if (tag == "Platform") Destroy(gameObject);
-        else if(tag == "Player")
+        string tag = collision.tag;
+        if(tag == "Player" || tag == "Platform")
         {
-            string playerNumber = gameObject.GetComponentInParent<GameObject>().GetComponentInParent<GameObject>().name;
-            if (playerNumber.Contains("(")) playerNumber = playerNumber.Substring(0, playerNumber.IndexOf("("));
-
-            string colliderName = gameObject.name;
-            if(colliderName.Contains("(")) colliderName = colliderName.Substring(0, colliderName.IndexOf("("));
-
-            switch (playerNumber)
+            if (_bulletName == "Grenade" && _bounce == 3)
             {
-                case ("Player1"):
-                    if(colliderName == "HeadCollider")
-                    {
-                        PlayerHitAction(1,100);
-                    }
-                    else
-                    {
-                        PlayerHitAction(1, _bulletDamage);
-                    }
-                    break;
-                case ("Player2"):
-                    if (colliderName == "HeadCollider")
-                    {
-                        PlayerHitAction(2, 100);
-                    }
-                    else
-                    {
-                        PlayerHitAction(2, _bulletDamage);
-                    }
-                    break;
-                case ("Player3"):
-                    if (colliderName == "HeadCollider")
-                    {
-                        PlayerHitAction(3, 100);
-                    }
-                    else
-                    {
-                        PlayerHitAction(3, _bulletDamage);
-                    }
-                    break;
-                case ("Player4"):
-                    if (colliderName == "HeadCollider")
-                    {
-                        PlayerHitAction(4, 100);
-                    }
-                    else
-                    {
-                        PlayerHitAction(4, _bulletDamage);
-                    }
-                    break;
+                _timeStarted = true;
+                _bounce--;
             }
-            Destroy(gameObject);
+            else if(_timeStarted && _bounce == 0)
+            {
+                GrenadeExplode();
+            }
+            else if(_timeStarted && _bounce > 0)
+            {
+                _bounce--;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
