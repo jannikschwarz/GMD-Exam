@@ -21,28 +21,20 @@ public class WeaponSpawner : MonoBehaviour
     private float[] grenadeLauncherP;
 
     private WeaponPosition _weaponPosInstance;
-    private int _mapNumber;
 
     void Start()
     {
-        _weaponPosInstance = WeaponPosition.Instance(2);
-        if (!WeaponPosition.retrievedPositions)
-        {
-            WeaponSpawn();
-            WeaponPosition.retrievedPositions = true;
-        }
         PlayerTrigger.WeaponPickedUp += RespawnWeapon;
     }
 
     public void WeaponMapSpawn(int mapNumber)
     {
-        //weaponPosition = new WeaponPosition(mapNumber);
-        /*_mapNumber = mapNumber;
-        if (!weaponPosition.retrievedPositions)
+        _weaponPosInstance = WeaponPosition.Instance(mapNumber);
+        if (!WeaponPosition.retrievedPositions)
         {
             WeaponSpawn();
-            weaponPosition.retrievedPositions = true;
-        }*/
+            WeaponPosition.retrievedPositions = true;
+        }
     }
 
     private void WeaponSpawn()
@@ -59,6 +51,11 @@ public class WeaponSpawner : MonoBehaviour
         Instantiate(grenadeLauncher, new Vector2(grenadeLauncherP[0], grenadeLauncherP[1]), Quaternion.identity);
         Instantiate(smallPistol, new Vector2(smallPistolP[0], smallPistolP[1]), Quaternion.identity);
         Instantiate(pistol, new Vector2(pistolP[0], pistolP[1]), Quaternion.identity);
+    }
+
+    public static void Reset()
+    {
+        WeaponPosition.retrievedPositions = false;
     }
 
     void RespawnWeapon(string weaponName)

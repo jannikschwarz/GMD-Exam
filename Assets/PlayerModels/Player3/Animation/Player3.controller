@@ -92,7 +92,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Speed
-    m_EventTreshold: 0
+    m_EventTreshold: 0.01
   - m_ConditionMode: 1
     m_ConditionEvent: Grounded
     m_EventTreshold: 0
@@ -276,7 +276,7 @@ AnimatorStateMachine:
     m_Position: {x: -260, y: -80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8823425599474954037}
-    m_Position: {x: -300, y: -160, z: 0}
+    m_Position: {x: -310, y: -210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4586585913739251243}
     m_Position: {x: -20, y: 60, z: 0}

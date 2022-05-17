@@ -10,7 +10,6 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] GameObject player3;
     [SerializeField] GameObject player4;
     private PlayerSpawnPosition _spawn;
-    private bool _startSpawnCalled;
     private List<float[]> _positions;
     private List<int> _haveRespawned;
     private List<int> _playerOut;
@@ -18,7 +17,6 @@ public class PlayerSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _startSpawnCalled = false;
         _spawn = PlayerSpawnPosition.getInstance();
         PlayerInfo.MapDeath += RespawnPlayer;
         PlayerInfo.KilledByPlayer += KilledByPlayer;
@@ -39,24 +37,30 @@ public class PlayerSpawner : MonoBehaviour
                 break;
 
         }
-        var playerOne = Instantiate(player1, new Vector2(_positions[0][0], _positions[0][1]), Quaternion.identity);
-        playerOne.SendMessage("PlayerName", playerNames[0]);
-        var playerTwo = Instantiate(player2, new Vector2(_positions[2][0], _positions[2][1]), Quaternion.identity);
-        playerTwo.SendMessage("PlayerName", playerNames[1]);
+        if (!PlayerSpawnPosition.playersSpawned) {
+            var playerOne = Instantiate(player1, new Vector2(_positions[0][0], _positions[0][1]), Quaternion.identity);
+            playerOne.SendMessage("PlayerName", playerNames[0]);
+            var playerTwo = Instantiate(player2, new Vector2(_positions[1][0], _positions[1][1]), Quaternion.identity);
+            playerTwo.SendMessage("PlayerName", playerNames[1]);
 
-        if (playerCount > 2)
-        {
-            var playerThree = Instantiate(player3, new Vector2(_positions[1][0], _positions[1][1]), Quaternion.identity);
-            playerThree.SendMessage("PlayerName", playerNames[2]);
+            if (playerCount > 2)
+            {
+                var playerThree = Instantiate(player3, new Vector2(_positions[2][0], _positions[2][1]), Quaternion.identity);
+                playerThree.SendMessage("PlayerName", playerNames[2]);
+            }
+
+            if (playerCount > 3)
+            {
+                var playerFour = Instantiate(player4, new Vector2(_positions[3][0], _positions[3][1]), Quaternion.identity);
+                playerFour.SendMessage("PlayerName", playerNames[3]);
+            }
+            PlayerSpawnPosition.playersSpawned = true;
         }
+    }
 
-        if (playerCount > 3)
-        {
-            var playerFour = Instantiate(player4, new Vector2(_positions[3][0], _positions[0][1]), Quaternion.identity);
-            playerFour.SendMessage("PlayerName", playerNames[3]);
-        }
-
-        _startSpawnCalled = true;
+    public static void Reset()
+    {
+        PlayerSpawnPosition.playersSpawned = false;
     }
 
     private void KilledByPlayer(int playerKilled, int killer)
@@ -66,9 +70,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void RespawnPlayer(int playerNumber)
     {
-        _startSpawnCalled = true;
-        _positions = _spawn.getMapTwoPositions();
-        if (_startSpawnCalled)
+        if (PlayerSpawnPosition.playersSpawned)
         {
             int random = UnityEngine.Random.Range(0, 4);
             float[] position = _positions[random];

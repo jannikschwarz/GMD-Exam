@@ -169,7 +169,7 @@ InputManager:
     m_Name: A_1
     descriptiveName: Vertical movement keys for player 1
     descriptiveNegativeName: 
-    negativeButton: down
+    negativeButton: 
     positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
@@ -185,7 +185,7 @@ InputManager:
     m_Name: A_2
     descriptiveName: Vertical movement keys for player 2
     descriptiveNegativeName: 
-    negativeButton: s
+    negativeButton: 
     positiveButton: w
     altNegativeButton: 
     altPositiveButton: 
@@ -201,7 +201,7 @@ InputManager:
     m_Name: A_3
     descriptiveName: Vertical movement keys for player 3
     descriptiveNegativeName: 
-    negativeButton: x
+    negativeButton: 
     positiveButton: space
     altNegativeButton: 
     altPositiveButton: 
@@ -217,7 +217,7 @@ InputManager:
     m_Name: A_4
     descriptiveName: Vertical movement keys for player 4
     descriptiveNegativeName: 
-    negativeButton: i
+    negativeButton: 
     positiveButton: k
     altNegativeButton: 
     altPositiveButton: 
@@ -266,7 +266,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: 
+    positiveButton: x
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -282,7 +282,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: 
+    positiveButton: ','
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000

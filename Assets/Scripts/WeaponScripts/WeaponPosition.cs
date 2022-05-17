@@ -35,10 +35,15 @@ namespace Scripts
             {
                 _positions = new List<float[]>
                 {
-                    new float[2]{-12.47f,-1.65f},
-                    new float[2]{-14.57f,2.61f},
-                    new float[2]{-2.74f,-4.5f},
-                    new float[2]{6.13f,0.06f}
+                    new float[2]{ -19.25f, 0.579f},
+                    new float[2]{ -7.7f, 1.66f},
+                    new float[2]{ -6.125f, 3.625f},
+                    new float[2]{ -7.79f, 6.6f },
+                    new float[2]{ 9.7f, 4.62f },
+                    new float[2]{ 9.7f, 2.59f },
+                    new float[2]{ 1.91f, 1.59f },
+                    new float[2]{ 2.2f, 8.62f },
+                    new float[2]{ -10.38f, -1.422f }
                 };
             }else if(mapNumber == 2)
             {

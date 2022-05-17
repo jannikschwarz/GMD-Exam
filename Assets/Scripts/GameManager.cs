@@ -2,16 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private Text theKilledTextFeed;
+    public Text theKilledTextFeed;
     [SerializeField]
-    private Text killedByTextFeed;
+    public Text killedByTextFeed;
     [SerializeField]
-    private Text winnerText;
+    public Text winnerText;
 
     private int _mapNumber;
     private int _playerCount;
@@ -27,16 +28,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        _weaponSpawner = GetComponent<WeaponSpawner>();
         MenuSelection.GameStart += GameStart;
         PlayerInfo.KilledByPlayer += KilledByPlayer;
         PlayerInfo.MapDeath += KilledByEdge;
         _playerSpawner = GetComponent<PlayerSpawner>();
         TextGenerator();
-        GameStart(2,2, new List<string>
-        {
-            "Bob",
-            "Bobilous"
-        });
+        theKilledTextFeed.text = "GAME HAS ";
+        killedByTextFeed.text = "STARTED";
     }
 
     private void Update()
@@ -59,7 +58,9 @@ public class GameManager : MonoBehaviour
 
     private void timerEnded()
     {
-        winnerText.text = "Time is up";
+        SceneManager.LoadScene("MainMenu");
+        WeaponSpawner.Reset();
+        PlayerSpawner.Reset();
     }
 
     private bool CheckKilledList()
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     private void KilledByPlayer(int killed, int theKiller)
     {
+        Debug.Log(killed + " Killer: " + theKiller);
+        Debug.Log(_playerNames.Count);
         string playerKilled = _playerNames[killed - 1];
         string killer = _playerNames[theKiller - 1];
         int random = UnityEngine.Random.Range(0, _edgeDeathText.Count);
@@ -86,8 +89,9 @@ public class GameManager : MonoBehaviour
         _playerCount = playerCount;
         _mapNumber = mapNumber;
         _playerNames = playerNames;
-        //_playerSpawner.PlayerSpawn(_playerCount, _mapNumber, _playerNames);
-        //_weaponSpawner.WeaponMapSpawn(_mapNumber);
+        _playerSpawner.PlayerSpawn(_playerCount, _mapNumber, _playerNames);
+        _weaponSpawner.WeaponMapSpawn(_mapNumber);
+
         for(int i = 0; i < _playerCount; i++)
         {
             _playerKilled.Add(i + 1);
@@ -97,15 +101,12 @@ public class GameManager : MonoBehaviour
 
     private void KilledByEdge(int playerNumber)
     {
-        if(true)
-        {
-            string playerName = _playerNames[playerNumber - 1];
-            int random = UnityEngine.Random.Range(0, _edgeDeathText.Count);
-            string text = _edgeDeathText[random];
-            theKilledTextFeed.text = playerName;
-            killedByTextFeed.text = text;
-            _playerKilled.Remove(playerNumber);
-        }
+        string playerName = _playerNames[playerNumber - 1];
+        int random = UnityEngine.Random.Range(0, _edgeDeathText.Count);
+        string text = _edgeDeathText[random];
+        theKilledTextFeed.text = playerName;
+        killedByTextFeed.text = text;
+        _playerKilled.Remove(playerNumber);
     }
 
     private void TextGenerator()

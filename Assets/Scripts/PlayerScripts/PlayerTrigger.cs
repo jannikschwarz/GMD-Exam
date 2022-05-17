@@ -59,24 +59,27 @@ public class PlayerTrigger : MonoBehaviour
                 weapon = Instantiate(_pistolPrefab) as GameObject;
                 break;
             case ("Rifle"):
-                weapon = Instantiate(_riflePrefab, new Vector2(0f, 0f), Quaternion.identity);
+                weapon = Instantiate(_riflePrefab) as GameObject;
                 break;
             case ("SmallPistol"):
-                weapon = Instantiate(_smallPistolPrefab, new Vector2(0f, 0f), Quaternion.identity);
+                weapon = Instantiate(_smallPistolPrefab) as GameObject;
                 break;
             case ("MachineGun"):
-                weapon = Instantiate(_machineGunPrefab, new Vector2(0f, 0f), Quaternion.identity);
+                weapon = Instantiate(_machineGunPrefab) as GameObject;
                 break;
             case ("GrenadeLauncher"):
-                weapon = Instantiate(_grenadeLauncherPrefab, new Vector2(0f, 0f), Quaternion.identity);
+                weapon = Instantiate(_grenadeLauncherPrefab) as GameObject;
                 break;
             case ("Shotgun"):
-                weapon = Instantiate(_shotGunPrefab, new Vector2(0f, 0f), Quaternion.identity);
+                weapon = Instantiate(_shotGunPrefab) as GameObject;
                 break;
         }
         if (weapon != null)
         {
-            weapon.transform.parent = gameObject.transform;
+            weapon.transform.parent = _characterControl.gameObject.transform;
+            weapon.transform.position = Vector3.zero;
+            weapon.transform.localPosition = Vector3.zero;
+            if (!_characterControl.FacingRight) weapon.transform.Rotate(new Vector3(0f, 180f));
             weapon.SendMessage("SetWeaponScript", _characterControl.gameObject);
             WeaponPickedUp(weaponName);
         }

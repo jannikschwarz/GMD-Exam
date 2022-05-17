@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 8027589857593909706, guid: 192e18e74996932448b6679c71f4b947, type: 3}
-  _bulletSpeed: 400
+  _bulletSpeed: 1000
   _shotClip: {fileID: 8300000, guid: 17f3805d11575844d85b49435bac1572, type: 3}
   _reloading: {fileID: 8300000, guid: 805da20df04b72f45b83e70b9f9befdd, type: 3}
   _shootTimerInterval: 1

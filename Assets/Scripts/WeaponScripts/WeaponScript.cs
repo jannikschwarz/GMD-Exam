@@ -137,56 +137,39 @@ public class WeaponScript : MonoBehaviour
             _shootInterval = true;
         }
         _recoil += _weapon.recoil;
-        Recoiling();
-    }
-
-    void Recoiling()
-    {
-        if(_recoil > 0)
-        {
-            var maxRecoil = Quaternion.Euler(-20f, 0, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, maxRecoil, Time.deltaTime * _recoilSpeed);
-            _recoil -= Time.deltaTime;
-        }
-        else
-        {
-            _recoil = 0;
-            var minRecoil = Quaternion.Euler(0, 0, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, minRecoil, Time.deltaTime * _recoilSpeed / 2);
-        }
     }
 
     void SetWeaponScript(GameObject mainPlayerGameObject)
     {
         _characterControl = mainPlayerGameObject.GetComponent<CharacterControl>();
         _playerInfo = mainPlayerGameObject.GetComponent<PlayerInfo>();
-        //Vector3 parentPosition = _characterControl.transform.position;
         string weaponName = gameObject.name;
         if (weaponName.Contains("("))
         {
             weaponName = weaponName.Substring(0, weaponName.IndexOf("("));
         }
-        /*switch (weaponName)
+        
+        switch (weaponName)
         {
             case ("Pistol"):
-                gameObject.transform.position += new Vector3(0.1f, -0.092f, 0f);
+                gameObject.transform.localPosition = new Vector3(0.1f, -0.06f, -0.1f);
                 break;
             case ("Rifle"):
-                gameObject.transform.position = new Vector3(0.098f, -0.093f, 0f);
+                gameObject.transform.localPosition = new Vector3(0.098f, -0.06f, -0.1f);
                 break;
             case ("SmallPistol"):
-                gameObject.transform.position = new Vector3(0.098f, -0.093f, 0f);
+                gameObject.transform.localPosition = new Vector3(0.098f, -0.06f, -0.1f);
                 break;
             case ("MachineGun"):
-                gameObject.transform.position = new Vector3(0.098f, -0.093f, 0f);
+                gameObject.transform.localPosition = new Vector3(0.098f, -0.06f, -0.1f);
                 break;
             case ("Shotgun"):
-                gameObject.transform.position = new Vector3(0.0661f, -0.0969f, 0f);
+                gameObject.transform.localPosition = new Vector3(0.0661f, -0.06f, -0.1f);
                 break;
             case ("GrenadeLauncher"):
-                gameObject.transform.position = new Vector3(0.08907971f, -0.08400133f, 0f);
+                gameObject.transform.localPosition = new Vector3(0.0891f, -0.06f, 0f);
                 break;
-        }*/
+        }
         _weapon = new Weapon(weaponName);
         _recoil = 0f;
     }

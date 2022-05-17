@@ -10,6 +10,7 @@ public sealed class PlayerSpawnPosition
     private static List<float[]> positionsMap2;
     private static readonly object padlock = new object();
     private static PlayerSpawnPosition instance = null;
+    public static bool playersSpawned { get; set; }
 
     PlayerSpawnPosition()
     {
@@ -32,10 +33,10 @@ public sealed class PlayerSpawnPosition
     {
         positionsMap1 = new List<float[]>
             {
-                new float[2]{-16.76f, -5.18f},
-                new float[2]{ -18.23f, 8.45f },
-                new float[2]{ 12.89f, 8.15f },
-                new float[2]{ 11.791f, -5.187f }
+                new float[2]{ -9.206f, -3.907f},
+                new float[2]{ -6.29f, -3.907f },
+                new float[2]{ -21.26f, 7.05f },
+                new float[2]{ 9.82f, -1.93f }
             };
 
         positionsMap2 = new List<float[]>
